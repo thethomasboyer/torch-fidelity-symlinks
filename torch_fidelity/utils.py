@@ -48,7 +48,7 @@ def glob_samples_paths(path, samples_find_deep, samples_find_ext, samples_ext_lo
         samples_ext_lossy = [a.strip() for a in samples_ext_lossy.split(",") if a.strip() != ""]
     have_lossy = False
     files = []
-    for r, d, ff in os.walk(path):
+    for r, d, ff in os.walk(path, followlinks=True):
         if not samples_find_deep and os.path.realpath(r) != os.path.realpath(path):
             continue
         for f in ff:
