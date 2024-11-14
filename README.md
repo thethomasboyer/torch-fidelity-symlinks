@@ -1,3 +1,7 @@
+This is a very minimal fork that simply makes `torch-fidelity` follow symlinks.
+
+---
+
 ![High-fidelity performance metrics for generative models in PyTorch](doc/img/header.png)
 
 [![Documentation Status](https://readthedocs.org/projects/torch-fidelity/badge/?version=latest)](https://torch-fidelity.readthedocs.io/en/latest/?badge=latest)
