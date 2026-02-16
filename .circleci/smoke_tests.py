@@ -162,8 +162,8 @@ class SmokeTests(TimeTrackingTestCase):
         self.assertAlmostEqual(metrics["frechet_inception_distance"], 110.28082617202443, delta=1e-2)
         self.assertAlmostEqual(metrics["kernel_inception_distance_mean"], -0.0006792521855187905, delta=1e-4)
         self.assertAlmostEqual(metrics["kernel_inception_distance_std"], 0.0017778231588294379, delta=1e-4)
-        self.assertAlmostEqual(metrics["precision"], 0.7109375, delta=1e-3)
-        self.assertAlmostEqual(metrics["recall"], 0.71484375, delta=1e-3)
+        self.assertAlmostEqual(metrics["precision"], 0.71484375, delta=1e-3)
+        self.assertAlmostEqual(metrics["recall"], 0.7109375, delta=1e-3)
         self.assertAlmostEqual(metrics["f_score"], 0.7128852739726027, delta=1e-3)
 
         res = self._run_fidelity_command(
@@ -207,6 +207,7 @@ class SmokeTests(TimeTrackingTestCase):
         metrics = json.loads(res.stdout)
         self.assertAlmostEqual(metrics["inception_score_mean"], 3.2955061842255757, delta=1e-3)
         self.assertAlmostEqual(metrics["inception_score_std"], 0.23961402932647136, delta=1e-3)
+
 
 
 if __name__ == "__main__":
