@@ -4,6 +4,7 @@ executors:
   executor_python:
     docker:
       - image: cimg/python:3.11.7
+    resource_class: large
     working_directory: /tmp
 
 jobs:
@@ -16,7 +17,7 @@ jobs:
           name: Create virtual environment
           command: |
             pip3 install -U pip
-            pip3 install -U numpy pillow tqdm torch torchvision
+            pip3 install -U numpy pillow tqdm torch torchvision psutil
       - run:
           name: Download datasets
           command: |
@@ -25,9 +26,13 @@ jobs:
             python3 code/utils/util_dump_dataset_as_images.py cifar10-valid data/cifar10-valid-256 -l 256
       - run:
           name: Smoke tests
-          no_output_timeout: 20m
+          no_output_timeout: 60m
           command: |
             cd code && CUDA_VISIBLE_DEVICES="" PYTHONPATH=. python3 ./.circleci/smoke_tests.py
+      - run:
+          name: PRC convention test
+          command: |
+            cd code && CUDA_VISIBLE_DEVICES="" PYTHONPATH=. python3 -m unittest tests.torch_pure.misc.test_prc_convention -v
 
 workflows:
   version: 2

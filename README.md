@@ -27,10 +27,10 @@ level avoids recomputing features and statistics whenever possible. High efficie
 training loop, for example at the end of every epoch. [Read more about efficiency](https://torch-fidelity.readthedocs.io/en/latest/miscellaneous.html)
 
 **Extensibility**: Going beyond 2D image generation is easy due to high modularity and abstraction of the metrics from
-input data, models, and feature extractors. For example, one can swap out InceptionV3 feature extractor for a one
-accepting 3D scan volumes, such as used in MRI. [Read more about extensibility](https://torch-fidelity.readthedocs.io/en/latest/extensibility.html)
+input data, models, and feature extractors. Register a custom feature extractor to evaluate any modality — video, audio,
+3D volumes, or anything else with a suitable learned representation. [Read more about extensibility](https://torch-fidelity.readthedocs.io/en/latest/extensibility.html)
 
-**TLDR; fast and reliable GAN evaluation in PyTorch**
+**TLDR; fast and reliable generative model evaluation in PyTorch**
 
 ## Installation
 
@@ -88,9 +88,8 @@ When it comes to tracking the performance of generative models as they train, ev
 becomes prohibitively expensive due to long computation times. 
 `torch_fidelity` tackles this problem by making full use 
 of caching to avoid recomputing common features and per-metric statistics whenever possible. 
-Computing all metrics for 50000 32x32 generated images and `cifar10-train` takes only 2 min 26 seconds on NVIDIA P100 
-GPU, compared to >10 min if using original codebases. 
-Thus, computing metrics 20 times over the whole training cycle makes overall training time just one hour longer.
+Computing all metrics for 50000 32x32 generated images and `cifar10-train` takes a fraction of the time compared to
+using original codebases, thanks to feature sharing and caching.
 
 In the following example, assume unconditional image generation setting with CIFAR-10, and the generative model 
 `generator`, which takes a 128-dimensional standard normal noise vector.
@@ -169,8 +168,8 @@ To ensure reproducibility when citing this repository, use the following BibTeX:
   title={High-fidelity performance metrics for generative models in PyTorch},
   url={https://github.com/toshas/torch-fidelity},
   publisher={Zenodo},
-  version={v0.3.0},
-  doi={10.5281/zenodo.4957738},
-  note={Version: 0.3.0, DOI: 10.5281/zenodo.4957738}
+  version={v0.4.0},
+  doi={10.5281/zenodo.3786539},
+  note={Version: 0.4.0, DOI: 10.5281/zenodo.3786539}
 }
 ```
