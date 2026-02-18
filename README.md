@@ -1,4 +1,4 @@
-This is a very minimal fork that simply makes `torch-fidelity` follow symlinks and adapts it to PyTorch 2.6.
+This is a very minimal fork that simply makes `torch-fidelity` follow symlinks.
 
 ---
 
