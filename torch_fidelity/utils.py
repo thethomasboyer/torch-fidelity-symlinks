@@ -131,7 +131,7 @@ def get_featuresdict_from_dataset(input, feat_extractor, batch_size, cuda, save_
     if num_workers is None:
         num_workers = 0 if save_cpu_ram else min(4, 2 * multiprocessing.cpu_count())
     else:
-        vassert(type(num_workers) is int and num_workers >= 0, "Num workers must be a non-negative integer or None")
+        vassert(type(num_workers) is int and num_workers >= 0, "num_workers must be a non-negative integer or None")
 
     dataloader = DataLoader(
         input,
