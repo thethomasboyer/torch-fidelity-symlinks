@@ -118,7 +118,7 @@ def batch_interp(a, b, t, method):
     return fn_interpolate(a, b, t)
 
 
-def get_featuresdict_from_dataset(input, feat_extractor, batch_size, cuda, save_cpu_ram, verbose, num_workers):
+def get_featuresdict_from_dataset(input, feat_extractor, batch_size, cuda, save_cpu_ram, verbose, num_workers=None):
     vassert(isinstance(input, Dataset), "Input can only be a Dataset instance")
     vassert(torch.is_tensor(input[0]), "Input Dataset should return torch.Tensor")
     vassert(
