@@ -303,6 +303,10 @@ def calculate_metrics(**kwargs):
         save_cpu_ram (bool): Use less CPU RAM at the cost of speed. May not lead to improvement with every metric.
             Default: `False`.
 
+        num_workers (int): Number of workers used by dataset DataLoader. If `None`, selected automatically and
+            controlled by :paramref:`~calculate_metrics.save_cpu_ram`; if set, overrides this behavior in all cases.
+            Default: `None`.
+
         verbose (bool): Output progress information to STDERR. Default: `True`.
 
     Returns:

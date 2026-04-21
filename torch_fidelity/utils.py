@@ -118,7 +118,7 @@ def batch_interp(a, b, t, method):
     return fn_interpolate(a, b, t)
 
 
-def get_featuresdict_from_dataset(input, feat_extractor, batch_size, cuda, save_cpu_ram, verbose):
+def get_featuresdict_from_dataset(input, feat_extractor, batch_size, cuda, save_cpu_ram, verbose, num_workers):
     vassert(isinstance(input, Dataset), "Input can only be a Dataset instance")
     vassert(torch.is_tensor(input[0]), "Input Dataset should return torch.Tensor")
     vassert(
@@ -128,7 +128,10 @@ def get_featuresdict_from_dataset(input, feat_extractor, batch_size, cuda, save_
     if batch_size > len(input):
         batch_size = len(input)
 
-    num_workers = 0 if save_cpu_ram else min(4, 2 * multiprocessing.cpu_count())
+    if num_workers is None:
+        num_workers = 0 if save_cpu_ram else min(4, 2 * multiprocessing.cpu_count())
+    else:
+        vassert(type(num_workers) is int and num_workers >= 0, "Num workers must be a non-negative integer or None")
 
     dataloader = DataLoader(
         input,
@@ -403,7 +406,10 @@ def extract_featuresdict_from_input_id(input_id, feat_extractor, **kwargs):
     input = prepare_input_from_id(input_id, **kwargs)
     if isinstance(input, Dataset):
         save_cpu_ram = get_kwarg("save_cpu_ram", kwargs)
-        featuresdict = get_featuresdict_from_dataset(input, feat_extractor, batch_size, cuda, save_cpu_ram, verbose)
+        num_workers = get_kwarg("num_workers", kwargs)
+        featuresdict = get_featuresdict_from_dataset(
+            input, feat_extractor, batch_size, cuda, save_cpu_ram, verbose, num_workers
+        )
     else:
         input_desc = prepare_input_descriptor_from_input_id(input_id, **kwargs)
         num_samples = input_desc["input_model_num_samples"]

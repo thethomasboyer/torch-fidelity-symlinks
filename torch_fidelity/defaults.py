@@ -55,5 +55,6 @@ DEFAULTS = {
     "input2_model_num_samples": None,
     "rng_seed": 2020,
     "save_cpu_ram": False,
+    "num_workers": None,
     "verbose": True,
 }
